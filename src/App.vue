@@ -39,5 +39,5 @@ export default {
     </div>
   </header> -->
 
-  <RouterView />
+  <RouterView :games="this.games" />
 </template>
