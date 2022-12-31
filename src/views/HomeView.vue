@@ -14,5 +14,6 @@ export default{
   
       <main>
         <h1>games project</h1>
+        <h2>this is System requirement App</h2>
       </main>
 </template>
