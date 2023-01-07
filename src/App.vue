@@ -1,7 +1,7 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router';
 import HelloWorld from './components/HelloWorld.vue';
-import {gameService} from './services/gameService'
+import { gameService } from './services/gameService';
 
 export default {
   data: () => ({
@@ -9,20 +9,22 @@ export default {
   }),
 
   created() {
+    
+  },
+
+  mounted() {
     this.fetchGames()
   },
 
   methods: {
-   async fetchGames() {
-     console.log( await gameService.query()) 
+    async fetchGames() {
+      this.games = await gameService.query()
+      console.log(this.games)
     },
   },
 
 
-
 };
-
-
 </script>
 
 <template>
