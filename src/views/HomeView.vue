@@ -9,13 +9,15 @@ export default {
 </script>
 
 <template>
-  <h2>this is System requirement App</h2>
-
-  <main>
-    <ul v-for="game in this.games" :key="game.id">
-      <li>
-        {{ game.title }}
+  <div class="app">
+    <h2>System requirement App</h2>
+    <main>
+      <ul>
+      <li class="game-card" v-for="game in this.games" :key="game.id">
+         <span>{{ game.title }}</span> 
+         <img :src="game.thumbnail" alt="">
       </li>
     </ul>
-  </main>
+    </main>
+  </div>
 </template>

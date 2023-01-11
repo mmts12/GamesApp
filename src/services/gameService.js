@@ -1,8 +1,6 @@
-
 export const gameService = {
     query
 }
-
 const BASE_URL = 'https://free-to-play-games-database.p.rapidapi.com/api/games?platform=pc'
 
 async function query() {
@@ -13,11 +11,7 @@ async function query() {
         return games;
     }
     else return JSON.parse(localStorage.getItem('games'));
-
-
-
 }
-
 function fetchOptions() {
     return {
         method: 'GET',
