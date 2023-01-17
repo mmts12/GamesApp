@@ -1,33 +1,37 @@
 <script>
-import { computed } from '@vue/runtime-core';
 export default {
   props: ['games'],
-    data() {
+  data() {
     return {
       currentPage: 1,
-      numberOfPages:this.games.length / 12,
-      filteredGames :[]
-  }
+      numberOfPages: this.games.length / 12,
+      filteredGames: [],
+    };
   },
 
-  computed:{
-    filterGames (){
-      this.filteredGames = this.games.slice(this.currentPage-1,12);
-      console.log(this.filteredGames)
-    }
+  computed: {},
+  watch: {
+    currentPage(newPage, oldPage) {
+      if (newPage !== oldPage) this.filterGames();
+    },
+  },
+
+  methods: {
+    changePage(page) {
+      this.currentPage = this.currentPage + page;
+      console.log(this.currentPage);
     },
 
-    methods:{
-      nextPage(page){
-        this.currentPage= page;
-        console.log(this.currentPage);
-      }
+    filterGames() {
+      let startList = (this.currentPage - 1) * 12;
+      let endList = (this.currentPage - 1) * 12 + 12;
+      this.filteredGames = this.games.slice(startList, endList);
     },
+  },
 
   mounted() {
     console.log(this.games.length);
-    console.log(this.filterGames)
-
+    this.filterGames();
   },
 };
 </script>
@@ -44,9 +48,15 @@ export default {
       </ul>
     </main>
     <div class="paginate-btns">
-    <button @click="nextPage(i)"  v-for="(i, index) in this.numberOfPages" :key="index">
-     {{ i }}
-    </button>
-  </div>
+      <button @click="changePage(-1)">Prev Page</button>
+      <button
+        @click="changePage(i)"
+        v-for="(i, index) in this.numberOfPages"
+        :key="index"
+      >
+        {{ i }}
+      </button>
+      <button @click="changePage(1)">Next Page</button>
+    </div>
   </div>
 </template>
