@@ -1,5 +1,4 @@
 <script>
-import { computed } from '@vue/runtime-core';
 export default {
   props: ['games'],
     data() {
