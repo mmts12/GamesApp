@@ -1,12 +1,11 @@
 .app{
-    width: 1000px;
     margin: 0 auto;
+    max-width: 1000px;
 
 }
 img{
     width: 100%;
     object-fit: cover;
-    
 }
 main{
     margin: 0 auto;
