@@ -60,49 +60,41 @@ export default {
   <div class="app">
     <h2>System requirement App</h2>
 
-    <main>
-      <div class="container text-center">
-        <div class="row row-cols-4">
-          <div
-            v-for="game in this.filteredGames"
-            :key="game.id"
-            class="card"
-            style="width: 16rem"
-          >
-            <img :src="game.thumbnail" class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title">{{ game.title }}</h5>
-              <!-- <p class="card-text">{{ game.short_description }}</p> -->
-              <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-            </div>
+    <div class=".container-fluid text-center">
+      <div class="row justify-content-center">
+      </div>
+      <div class="row row-cols-md justify-content-center">
+        <div
+          v-for="game in this.filteredGames"
+          :key="game.id"
+          class="card card-game"
+          style="width: 12rem"
+        >
+          <img :src="game.thumbnail" class="card-img-top" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">{{ game.title }}</h5>
+            <p class="card-text">{{ game.short_description }}</p>
+            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
           </div>
-          <!-- <div
-            class="game-card"
-            v-for="game in this.filteredGames"
-            :key="game.id"
-          >
-            <span>{{ game.title }}</span>
-            <img :src="game.thumbnail" alt="" />
-          </div> -->
         </div>
       </div>
-    </main>
+    </div>
+    <nav aria-label="..." class="paginate-btns">
+      <ul class="pagination">
+        <li :class="previousPage" @click="changePage('previous')">
+          <a class="page-link">Previous</a>
+        </li>
+        <li
+          :class="setActivePage(index + 1)"
+          v-for="(i, index) in this.numberOfPages"
+          :key="index"
+        >
+          <a @click="changePage(i)" class="page-link" href="#">{{ i }}</a>
+        </li>
+        <li :class="nextPage" @click="changePage('next')">
+          <a class="page-link" href="#">Next</a>
+        </li>
+      </ul>
+    </nav>
   </div>
-  <nav aria-label="..." class="paginate-btns">
-    <ul class="pagination">
-      <li :class="previousPage" @click="changePage('previous')">
-        <a class="page-link">Previous</a>
-      </li>
-      <li
-        :class="setActivePage(index + 1)"
-        v-for="(i, index) in this.numberOfPages"
-        :key="index"
-      >
-        <a @click="changePage(i)" class="page-link" href="#">{{ i }}</a>
-      </li>
-      <li :class="nextPage" @click="changePage('next')">
-        <a class="page-link" href="#">Next</a>
-      </li>
-    </ul>
-  </nav>
 </template>
