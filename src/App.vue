@@ -19,7 +19,6 @@ export default {
   methods: {
     async fetchGames() {
       this.games = await gameService.query()
-      console.log(this.games)
     },
   },
 

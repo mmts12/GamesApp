@@ -1,7 +1,8 @@
 <script>
 import Pagination from '../components/Pagination.vue';
+import Search from '../components/Search.vue';
 export default {
-  components: { Pagination },
+  components: { Pagination, Search },
   props: ['games'],
   data() {
     return {
@@ -12,19 +13,9 @@ export default {
     };
   },
 
-  computed: {
-    previousPage() {
-      if (this.currentPage === 1) return 'page-item disabled';
-      else return 'page-item';
-    },
-    nextPage() {
-      if (this.currentPage === 25) return 'page-item disabled';
-      else return 'page-item';
-    },
-  },
+  computed: {},
   watch: {
     currentPage(newPage, oldPage) {
-      console.log(this.currentPage);
       if (newPage !== oldPage) this.filterGames();
     },
   },
@@ -32,9 +23,11 @@ export default {
   methods: {
     changePage(page) {
       if (page === 'next') {
+        if (this.currentPage === 25) return;
         this.currentPage++;
         return;
       } else if (page === 'previous') {
+        if (this.currentPage === 1) return;
         this.currentPage--;
         return;
       } else this.currentPage = page;
@@ -45,14 +38,13 @@ export default {
       let endList = (this.currentPage - 1) * 12 + 12;
       this.filteredGames = this.games.slice(startList, endList);
     },
-    setActivePage(index) {
-      if (this.currentPage === index) return 'page-item active';
-      return 'page-item';
-    },
+    onSetFilter (event){
+      console.log('hiiii')
+      console.log(event);
+    }
   },
 
   mounted() {
-    console.log(this.games);
     this.filterGames();
   },
 };
@@ -61,10 +53,12 @@ export default {
 <template>
   <div class="app">
     <h2>System requirement App</h2>
-
+    
     <div class=".container-fluid text-center">
-      <div class="row justify-content-center">
-      </div>
+      <search
+      @onSetFilter="onSetFilter"
+      ></search>
+      <div class="row justify-content-center"></div>
       <div class="row row-cols-md justify-content-center">
         <div
           v-for="game in this.filteredGames"
@@ -81,24 +75,11 @@ export default {
         </div>
       </div>
     </div>
-    <pagination>
-  </pagination>
-    <nav aria-label="..." class="paginate-btns">
-      <ul class="pagination">
-        <li :class="previousPage" @click="changePage('previous')">
-          <a class="page-link">Previous</a>
-        </li>
-        <li
-          :class="setActivePage(index + 1)"
-          v-for="(i, index) in this.numberOfPages"
-          :key="index"
-        >
-          <a @click="changePage(i)" class="page-link" href="#">{{ i }}</a>
-        </li>
-        <li :class="nextPage" @click="changePage('next')">
-          <a class="page-link" href="#">Next</a>
-        </li>
-      </ul>
-    </nav>
+    <pagination
+      @changePage="changePage"
+      :numberOfPages="numberOfPages"
+      :currentPage="currentPage"
+    >
+    </pagination>
   </div>
 </template>
