@@ -1,5 +1,7 @@
 <script>
+import Pagination from '../components/Pagination.vue';
 export default {
+  components: { Pagination },
   props: ['games'],
   data() {
     return {
@@ -79,6 +81,8 @@ export default {
         </div>
       </div>
     </div>
+    <pagination>
+  </pagination>
     <nav aria-label="..." class="paginate-btns">
       <ul class="pagination">
         <li :class="previousPage" @click="changePage('previous')">
